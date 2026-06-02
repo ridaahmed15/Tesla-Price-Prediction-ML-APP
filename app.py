@@ -2,59 +2,111 @@ import streamlit as st
 from sklearn import linear_model
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
+from streamlit_option_menu import option_menu
 
 import plotly.express as px
 
 st.set_page_config(layout="wide")
 
+select= option_menu(
+    menu_title=None,
+    options=["Home","Predict Price","About Tesla Y"],
+    orientation="horizontal"
+)
+
 df=pd.read_csv("teslay.csv")
 
-col5,col6,col7,col8= st.columns(4)
-with col5:
-    st.metric("Total Colors",df["color"].nunique())
-with col6:
-    st.metric("Average Prices Of Tesla Y Model",round(df["price"].mean(),2))  #2 mtlb decimal point
-with col7:
-    st.metric("Maximum Prices Of  Tesla Y Model",round(df["price"].max(),2))
-with col8:
-    st.metric("Minimum Prices Of  Tesla Y Model",round(df["price"].min(),2))
 
-col3,col4=st.columns(2)
+if select=="Home":
+    st.title("Tesla Y model Price Analysis for 2024 & 2025")
 
-with col3:
-    st.title("Total Value Count Color-wise")
-    df2=df["color"].value_counts()
-    st.dataframe(df2)
-with col4:
-     
-    st.title("YEAR-WISE (model) PRICE TREND!")
+    col5,col6,col7,col8= st.columns(4)
+    with col5:
+        st.metric("Total Colors",df["color"].nunique())
+    with col6:
+        st.metric("Average Prices Of Tesla Y Model",round(df["price"].mean(),2))  #2 mtlb decimal point
+    with col7:
+        st.metric("Maximum Prices Of  Tesla Y Model",round(df["price"].max(),2))
+    with col8:
+        st.metric("Minimum Prices Of  Tesla Y Model",round(df["price"].min(),2))
 
-    date_year=df.groupby("year")["price"].mean().reset_index()
+    col3,col4=st.columns(2)
 
-    fig=px.line(
-        date_year,
-        x="year",
-        y="price",
-        title="Price Trend"
-    )
-    st.plotly_chart(fig)
-
-col1,col2=st.columns(2)
-
-with col1:
-    st.subheader("RAW DATA SET")
-    st.dataframe(df)
-
-with col2:
+    with col3:
+        st.title("Total Value Count Color-wise")
+        df2=df["color"].value_counts()
+        st.dataframe(df2)
+    with col4:
         
-        st.subheader("Color Wise Dataset")
+        st.title("YEAR-WISE (model) PRICE TREND!")
 
-        fig_price= px.bar(
-            df,
-            x="color",
+        date_year=df.groupby("year")["price"].mean().reset_index()
+
+        fig=px.line(
+            date_year,
+            x="year",
             y="price",
-            text="color",
-            title="COLOR WISE PRICES",
-            color="color"
+            title="Price Trend"
         )
-        st.plotly_chart(fig_price)
+        st.plotly_chart(fig)
+
+    col1,col2=st.columns(2)
+
+    with col1:
+        st.subheader("RAW DATA SET")
+        st.dataframe(df)
+
+    with col2:
+            
+            st.subheader("Color Wise Dataset")
+
+            fig_price= px.bar(
+                df,
+                x="color",
+                y="price",
+                text="color",
+                title="COLOR WISE PRICES",
+                color="color"
+            )
+            st.plotly_chart(fig_price)
+
+if select=="Predict Price":
+    st.title("Predict The Price Of Tesla Y Model")
+    st.info("By Selecting Year, Color & Km's")
+
+    le=LabelEncoder()
+
+    df['color']=le.fit_transform(df['color'])
+
+    x=df[["year","km","color"]]
+    y=df.price
+
+
+    #st.dataframe(x)  #ccomment krdie kiu k   labelencoder ki need ni hui
+    #st.dataframe(y)
+
+    model=linear_model.LinearRegression()
+    model.fit(x,y)   #model ko fit krk predictions deta  hai
+
+    col9,col10=st.columns(2)
+
+    with col9:
+
+        year=st.selectbox("Enter Year:",[2020,2021,2022,2023,2024,2025,2026,2027,2028])
+        km=int(st.number_input("Enter Kilometers",min_value=6000))
+        color=st.selectbox("Select Color",le.classes_)
+        pred=st.button("Predict")
+
+    with col10:
+        if pred:
+            if color:
+                col_ch=le.transform([color])[0] #color change
+                predicted_price=model.predict([[year,km,col_ch]])
+                st.balloons()
+                score=model.score(x,y)
+                accuracy=int(score*100)
+                st.subheader("How Accurate The Predicted Price Is!")
+                st.info(f"{accuracy}%")
+                st.subheader("Here Is Your Predicted Price For Tesla Y")
+                predic=round(predicted_price[0],2)   #2 k decimal me round krwa k predic k variable me dal dia or phr nechy print krwadia
+                st.info(predic)
