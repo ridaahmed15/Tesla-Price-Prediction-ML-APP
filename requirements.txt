@@ -1,0 +1,4 @@
+streamlit_option_menu
+scikit-learn
+pandas
+plotly.express
