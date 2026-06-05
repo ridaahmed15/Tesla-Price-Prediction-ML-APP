@@ -10,8 +10,9 @@ st.set_page_config(layout="wide")
 
 select= option_menu(
     menu_title=None,
-    options=["Home","Predict Price","About Tesla Y"],
+    options=["Home","Predict Price","About Us","About Dev"],
     orientation="horizontal"
+
 )
 
 df=pd.read_csv("teslay.csv")
@@ -124,7 +125,7 @@ if select=="Predict Price":
             updated_data=pd.concat([existing_data,new_data])
             updated_data.to_csv("teslay.csv",index=False)
 
-if select=="About Tesla Y":
+if select=="About Us":
     st.set_page_config(layout="wide")
     st.image("tesla.jpg", use_container_width=True)
 
@@ -133,7 +134,7 @@ if select=="About Tesla Y":
 
         st.title("ABOUT US")
         st.write("The Tesla Model Y is more than just an electric SUV; it represents a journey toward a future where the driving experience is sustainable, intelligent, and fully connected. Our mission is to lead the transport revolution, blending cutting-edge innovation with daily practicality. With unparalleled range, sports-car-like performance, and a minimalist design, the Model Y is crafted for those who refuse to compromise on their journey.")
-        st.write("Our goal is to provide accurate, insightful, and up-to-date content that helps individuals make informed decisions about electric vehicles. From vehicle features and performance insights to industry developments and ownership resources, we are committed to delivering information that is both valuable and easy to understand.We believe that the future of transportation is sustainable, intelligent, and connected. As electric vehicle technology continues to transform the automotive landscape, we aim to bridge the gap between innovation and everyday drivers by providing clear, reliable guidance and expert perspectives.We believe that the future of transportation is sustainable, intelligent, and connected. As electric vehicle technology continues to transform the automotive landscape, we aim to bridge the gap between innovation and everyday drivers by providing clear, reliable guidance and expert perspectives.Whether you are researching your next vehicle, exploring the benefits of electric mobility, or staying informed about the latest advancements, our platform is dedicated to supporting your journey with professionalism, integrity, and a passion for the future of transportation.")
+        st.write("Our goal is to provide accurate, insightful, and up-to-date content that helps individuals make informed decisions about electric vehicles. From vehicle features and performance insights to industry developments and ownership resources, we are committed to delivering information that is both valuable and easy to understand.We believe that the future of transportation is sustainable, intelligent, and connected. As electric vehicle technology continues to transform the automotive landscape, we aim to bridge the gap between innovation and everyday drivers by providing clear, reliable guidance and expert perspectives.We believe that the future of transportation is sustainable, intelligent, and connected. ")
     
     with col12:
         st.image("teslaz.png",use_container_width=True)
@@ -148,6 +149,61 @@ if select=="About Tesla Y":
     st.write("📱 With a large touchscreen display and fast-charging capabilities, the Model Y acts as a smart, mobile technology hub.")
 
     st.image("teslascar.jpg", use_container_width=True)
+
+    st.write("On the performance front, the vehicle remains highly efficient, with the Long Range All-Wheel Drive variant capable of reaching an EPA-estimated 327–329 miles on a single charge. Those who prioritize speed can enjoy the Performance trim, which is capable of accelerating from 0 to 60 mph in as little as 3.3 seconds. The vehicle maintains a strong safety standard by including Tesla’s camera-based suite, featuring adaptive cruise control, lane-keeping assist, and automated emergency braking as standard equipment on all models. Additionally, the option for Full Self-Driving (Supervised) is available, now with more flexible access through monthly subscription plans.")
+
+    st.write("The 2026 Tesla Model Y introduces a new software feature known as Comfort Braking, which modulates brake pedal input for more refined, linear deceleration. Connectivity has been improved through Ultra Wideband technology, enhancing phone key performance, while the Wi-Fi hotspot now offers faster download speeds and greater range. Structural refinements to the body shell have increased stiffness, which, when combined with aerodynamic improvements from the new front splitter and rear diffuser, has increased the EPA-estimated range by over 20 miles.")
+
+    st.write("To manage cabin temperature, the panoramic glass roof now reflects 26% more sunlight, and a factory-designed retractable sunshade is available as a new accessory. For increased utility, the rear seats now fold flat electrically, and the cargo area includes a magnetic, folding load-bay cover that stores in a dedicated under-floor cubby. Finally, the navigation system has been updated to show lifelike 3D renderings of vehicles at Supercharger sites, including specific icons to distinguish between different models like the Cybertruck and Model X.")
+    
+    col13,col14,col15=st.columns(3)
+
+    with col13:
+        st.success("☀️ Design & Utility")
+
+    with col14:
+        st.success("📱 Technology Hub")
+
+    with col15:
+        st.success("✨ Seating Comfort")
+
+if select=="About Dev":
+    st.title("RIDA AHMED")
+
+    st.write("I am a Full-Stack Python Developer and Machine Learning App Developer with a deep passion for building scalable, data-driven solutions. My work focuses on bridging the gap between complex algorithms and user-friendly interfaces, ensuring that technology serves a practical, real-world purpose.")
+
+    st.header("About This Project")
+    st.write("This application is a testament to my commitment to MLOps and robust software engineering. To build this, I leveraged a powerful stack of tools:")
+    st.write("Python 🐍: The core logic behind the data processing and predictive engine.")
+    st.write("Scikit-Learn🧠: Used to power the machine learning model for accurate price predictions.")
+
+    st.write("Pandas 📊: For efficient data manipulation and cleaning.")
+    st.write("Plotly Express 📈: To create interactive, dynamic visualizations that react to real-time data.")
+
+    st.write("Streamlit & Streamlit_option_menu 🌐: To provide a seamless, high-performance web interface.")
+
+    st.write("I believe that a model is only as strong as its data. By implementing custom validation pipelines, I have ensured that this application remains reliable, filtering out abnormal inputs to maintain high-quality datasets. I am always exploring new ways to make AI more accessible and efficient.")
+    st.write("I’m currently focused on growing as an early-career professional and am always eager to collaborate on meaningful projects. Feel free to reach out through my professional channels:")
+
+    st.markdown("#### 🔗 CONNECT WITH ME!")
+
+    st.markdown(
+        "[LinkedIn](https://www.linkedin.com/in/ridaahmed-dev/)"
+    )
+
+    st.markdown(
+
+        "[GITHUB](https://github.com/ridaahmed15)"
+
+
+        )
+    
+    st.divider()
+
+
+
+
+
 
 
 
